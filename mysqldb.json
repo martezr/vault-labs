@@ -1,0 +1,7 @@
+{
+  "plugin_name": "mysql-database-plugin",
+  "allowed_roles": "readonly",
+  "connection_url": "{{username}}:{{password}}@tcp(db:3306)/",
+  "username": "root",
+  "password": "dbpassword"
+}

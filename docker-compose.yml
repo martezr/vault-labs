@@ -1,0 +1,36 @@
+version: '3'
+services:
+  jenkins:
+    build: ./jenkins
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    environment:
+      - JAVA_OPTS="-Djenkins.install.runSetupWizard=false"
+  vault:
+    hostname: vault
+    image: vault:latest
+    cap_add:
+      - IPC_LOCK
+    environment:
+      - VAULT_DEV_ROOT_TOKEN_ID=vaultpassword
+      - VAULT_ADDR=http://127.0.0.1:8200
+    ports:
+      - "8200:8200"
+  db:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: dbpassword
+  splunkenterprise:
+    hostname: splunkenterprise
+    image: splunk/splunk:7.1.2
+    environment:
+    - SPLUNK_START_ARGS:"--accept-license --seed-passwd password"
+    - SPLUNK_ENABLE_LISTEN:"9997"
+    - SPLUNK_ADD:"tcp 1514"
+    ports:
+    - "8000:8000"
+    - "9997:9997"
+    - "8088:8088"
+    - "1514:1514"
