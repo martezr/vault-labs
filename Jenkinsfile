@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
       VAULT_ADDR  = 'http://localhost:8200/'
-      VAULT_TOKEN = 'vaultpassword
+      VAULT_TOKEN = 'vaultpassword'
     }
     stages {
         stage('Create Vault Container') {
