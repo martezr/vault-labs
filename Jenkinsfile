@@ -10,7 +10,7 @@ pipeline {
         stage('Provision Vault Instance'){
             steps {
                 sh 'sudo curl --header "X-Vault-Token:vaultpassword" --request POST -d \'{"type": "github","description": "Login with GitHub"}\' http://127.0.0.1:8200/v1/sys/auth/my-auth'
-                sh 'sudo curl --header "X-Vault-Token:vaultpassword" --request PUT --data @policies/vault-admin-policy.hcl http://127.0.0.1:8200/v1/sys/policy/vault-admin-policy"
+                sh 'sudo curl --header "X-Vault-Token:vaultpassword" --request PUT --data @./policies/vault-admin-policy.hcl http://127.0.0.1:8200/v1/sys/policy/vault-admin-policy'
             }
         }
         stage('Test Vault Instance'){
