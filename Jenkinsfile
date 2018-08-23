@@ -13,7 +13,7 @@ pipeline {
         }
         stage('Download Vault Client'){
             steps {
-                sh 'curl -o vault.zip https://releases.hashicorp.com/vault/0.10.4/vault_0.10.4_linux_amd64.zip ; yes | unzip vault.zip'
+                sh 'sudo curl -o vault.zip https://releases.hashicorp.com/vault/0.10.4/vault_0.10.4_linux_amd64.zip ; yes | sudo unzip vault.zip'
             }
         }
         stage('Provision Vault Instance'){
