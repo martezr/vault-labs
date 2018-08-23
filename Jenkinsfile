@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    environment {
+      VAULT_ADDR  = 'http://localhost:8200/'
+      VAULT_TOKEN = 'vaultpassword
+    }
     stages {
         stage('Create Vault Container') {
             steps {
@@ -7,10 +11,15 @@ pipeline {
                 sh 'sleep 15'
             }
         }
+        stage('Download Vault Client'){
+            steps {
+                sh 'curl -o vault.zip https://releases.hashicorp.com/vault/0.10.4/vault_0.10.4_linux_amd64.zip ; yes | unzip vault.zip'
+            }
+        }
         stage('Provision Vault Instance'){
             steps {
                 sh 'sudo curl --header "X-Vault-Token:vaultpassword" --request POST -d \'{"type": "github","description": "Login with GitHub"}\' http://127.0.0.1:8200/v1/sys/auth/my-auth'
-                sh 'sudo curl --header "X-Vault-Token:vaultpassword" --request PUT --data-binary @policies/vault-admin-policy.json http://127.0.0.1:8200/v1/sys/policy/vault-admin-policy'
+                sh './vault policy write vault-admin-policy ./policies/vault-admin-policy.hcl'
             }
         }
         stage('Test Vault Instance'){
