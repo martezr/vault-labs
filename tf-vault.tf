@@ -27,5 +27,5 @@ resource "vault_database_secret_backend_role" "role" {
   backend             = "${vault_mount.db.path}"
   name                = "prod"
   db_name             = "${vault_database_secret_backend_connection.postgres.name}"
-  creation_statements = "CREATE ROLE {{name}} WITH LOGIN PASSWORD '{{password}}' VALID UNTIL '{{expiration}}';"
+  creation_statements = "CREATE ROLE \"{{name}}\" WITH LOGIN PASSWORD '{{password}}' VALID UNTIL '{{expiration}}';"
 }
