@@ -17,6 +17,7 @@ resource "vault_database_secret_backend_connection" "postgres" {
   backend       = "${vault_mount.db.path}"
   name          = "postgres-database"
   allowed_roles = ["dev", "prod"]
+  verify_connection = false
 
   postgresql {
     connection_url = "postgres://root:password@postgresdb:5432/database"
