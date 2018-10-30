@@ -8,13 +8,24 @@ resource "vault_auth_backend" "aws_example" {
   type = "aws"
 }
 
-resource "vault_audit" "test" {
-  type = "socket"
-  path = "app_socket"
+resource "vault_mount" "db" {
+  path = "postgres"
+  type = "database"
+}
 
-  options = {
-    address     = "127.0.0.1:8000"
-    socket_type = "tcp"
-    description = "application x socket"
+resource "vault_database_secret_backend_connection" "postgres" {
+  backend       = "${vault_mount.db.path}"
+  name          = "postgres-database"
+  allowed_roles = ["dev", "prod"]
+
+  postgresql {
+    connection_url = "postgres://root:password@postgresdb:5432/database"
   }
+}
+
+resource "vault_database_secret_backend_role" "role" {
+  backend             = "${vault_mount.db.path}"
+  name                = "prod"
+  db_name             = "${vault_database_secret_backend_connection.postgres.name}"
+  creation_statements = "CREATE ROLE {{name}} WITH LOGIN PASSWORD '{{password}}' VALID UNTIL '{{expiration}}';"
 }
