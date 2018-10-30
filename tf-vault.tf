@@ -15,18 +15,17 @@ resource "vault_mount" "db" {
 
 resource "vault_database_secret_backend_connection" "postgres" {
   backend       = "${vault_mount.db.path}"
-  name          = "postgres-database"
+  name          = "postgres"
   allowed_roles = ["dev", "prod"]
-  verify_connection = false
 
   postgresql {
-    connection_url = "postgres://root:password@postgresdb:5432/database"
+    connection_url = "postgres://root:password@postgresdb:5432/database?sslmode=disable"
   }
 }
 
 resource "vault_database_secret_backend_role" "role" {
   backend             = "${vault_mount.db.path}"
-  name                = "postgresdb-prod"
+  name                = "prod"
   db_name             = "${vault_database_secret_backend_connection.postgres.name}"
   creation_statements = "CREATE ROLE {{name}} WITH LOGIN PASSWORD '{{password}}' VALID UNTIL '{{expiration}}';"
 }
