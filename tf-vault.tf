@@ -19,7 +19,7 @@ resource "vault_database_secret_backend_connection" "postgres" {
   allowed_roles = ["dev", "prod"]
 
   postgresql {
-    connection_url = "postgres://root:password@postgresdb:5432/database?sslmode=disable"
+    connection_url = "postgres://postgres:password@postgresdb:5432/database?sslmode=disable"
   }
 }
 
