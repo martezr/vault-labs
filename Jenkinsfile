@@ -40,7 +40,7 @@ pipeline {
     }
     post { 
         always { 
-            sh 'sudo docker stop vaultci && sudo docker rm vaultci'
+            sh 'sudo docker-compose down'
         }
     }
 }
