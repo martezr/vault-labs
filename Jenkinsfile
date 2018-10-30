@@ -11,11 +11,6 @@ pipeline {
                 sh 'sleep 15'
             }
         }
-        stage('Download Vault Client'){
-            steps {
-                sh 'sudo curl -o vault.zip https://releases.hashicorp.com/vault/0.10.4/vault_0.10.4_linux_amd64.zip ; yes | sudo unzip vault.zip'
-            }
-        }
         stage('Download Terraform'){
             steps {
                 sh 'sudo curl -o terraform.zip https://releases.hashicorp.com/terraform/0.11.10/terraform_0.11.10_linux_amd64.zip ; yes | sudo unzip terraform.zip'
@@ -34,11 +29,6 @@ pipeline {
         stage('Terraform Apply') {
             steps {
                 sh './terraform apply -auto-approve'
-            }
-        }
-        stage('Provision Vault Instance'){
-            steps {
-                sh './vault policy write vault-admin-policy ./policies/vault-admin-policy.hcl'
             }
         }
         stage('Test Vault Instance'){
