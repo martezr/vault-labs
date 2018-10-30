@@ -1,7 +1,5 @@
 provider "vault" {}
 
-resource "vault_mount" "example" {
-  path        = "dummy"
-  type        = "aws"
-  description = "This is an example mount"
+resource "vault_auth_backend" "example" {
+  type = "github"
 }
