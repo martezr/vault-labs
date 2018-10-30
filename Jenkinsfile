@@ -35,7 +35,7 @@ pipeline {
         stage('Test Vault Instance'){
             steps {
                 sh 'curl --header "X-Vault-Token:vaultpassword" http://127.0.0.1:8200/v1/sys/auth | python -m json.tool'
-                sh 'curl --header "X-Vault-Token:vaultpassword" http://127.0.0.1:8200/v1/database/creds/postgresdb'
+                sh 'curl --header "X-Vault-Token:vaultpassword" http://127.0.0.1:8200/v1/database/creds/postgresdb-prod'
             }
         }
     }
