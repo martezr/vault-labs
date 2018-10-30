@@ -9,9 +9,12 @@ resource "vault_auth_backend" "aws_example" {
 }
 
 resource "vault_audit" "test" {
-  type = "file"
+  type = "socket"
+  path = "app_socket"
 
   options = {
-    file_path = "/var/log/audit.log"
+    address     = "127.0.0.1:8000"
+    socket_type = "tcp"
+    description = "application x socket"
   }
 }
