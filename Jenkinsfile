@@ -38,7 +38,6 @@ pipeline {
         }
         stage('Provision Vault Instance'){
             steps {
-                sh 'sudo curl --header "X-Vault-Token:vaultpassword" --request POST -d \'{"type": "github","description": "Login with GitHub"}\' http://127.0.0.1:8200/v1/sys/auth/my-auth'
                 sh './vault policy write vault-admin-policy ./policies/vault-admin-policy.hcl'
             }
         }
