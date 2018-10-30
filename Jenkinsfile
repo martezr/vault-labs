@@ -7,7 +7,8 @@ pipeline {
     stages {
         stage('Create Vault Container') {
             steps {
-                sh 'sudo docker run -d --name vaultci -e "VAULT_DEV_ROOT_TOKEN_ID=vaultpassword" -p 8200:8200 vault:latest'
+//                sh 'sudo docker run -d --name vaultci -e "VAULT_DEV_ROOT_TOKEN_ID=vaultpassword" -p 8200:8200 vault:latest'
+                sh 'docker-compose up -d'
                 sh 'sleep 15'
             }
         }
