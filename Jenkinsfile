@@ -16,6 +16,26 @@ pipeline {
                 sh 'sudo curl -o vault.zip https://releases.hashicorp.com/vault/0.10.4/vault_0.10.4_linux_amd64.zip ; yes | sudo unzip vault.zip'
             }
         }
+        stage('Download Terraform'){
+            steps {
+                sh 'sudo curl -o terraform.zip https://releases.hashicorp.com/terraform/0.11.10/terraform_0.11.10_linux_amd64.zip ; yes | sudo unzip terraform.zip'
+            }
+        }
+         stage('Terraform Init') {
+            steps {
+                sh './terraform init'
+            }
+        }
+        stage('Terraform Plan') {
+            steps {
+                sh './terraform plan'
+            }
+        }
+        stage('Terraform Apply') {
+            steps {
+                sh './terraform apply -auto-approve'
+            }
+        }
         stage('Provision Vault Instance'){
             steps {
                 sh 'sudo curl --header "X-Vault-Token:vaultpassword" --request POST -d \'{"type": "github","description": "Login with GitHub"}\' http://127.0.0.1:8200/v1/sys/auth/my-auth'
