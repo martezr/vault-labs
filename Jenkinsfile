@@ -35,6 +35,7 @@ pipeline {
             steps {
                 sh 'curl --header "X-Vault-Token:vaultpassword" http://127.0.0.1:8200/v1/sys/auth | python -m json.tool'
                 sh 'curl --header "X-Vault-Token:vaultpassword" http://127.0.0.1:8200/v1/postgres/creds/prod | python -m json.tool'
+                input 'Manual testing completed?'
             }
         }
     }
