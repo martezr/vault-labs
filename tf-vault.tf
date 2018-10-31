@@ -1,11 +1,7 @@
 provider "vault" {}
 
-resource "vault_auth_backend" "github_example" {
-  type = "github"
-}
-
-resource "vault_auth_backend" "aws_example" {
-  type = "aws"
+resource "vault_auth_backend" "userpass_authentication" {
+  type = "userpass"
 }
 
 resource "vault_mount" "db" {
