@@ -19,8 +19,8 @@ services:
     hostname: vaultprep
     build: ./vaultprep
     environment: 
-      - VAULT_TOKEN: vaultpassword
-      - VAULT_ADDR: http://vault:8200
+      - VAULT_TOKEN=vaultpassword
+      - VAULT_ADDR=http://vault:8200
     depends_on:
       - vault
     command: ["python","/app/seeddata.py"]
